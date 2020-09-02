@@ -10,7 +10,7 @@ output:
 ---
 <p style="width:90%;margin:10px 10px">
 <h2> Background </h2>
-This is a test R Markdown document that renders the output in HTML, then inserts the HTML into the body of an email. I'm still obviously working out the kinks. I also attached a print-friendly word doc with the same info. Note that the data displayed here is fake.
+This is a test R Markdown document that renders the output in HTML, then inserts the HTML into the body of an email. I\'m still obviously working out the kinks. I also attached a print-friendly word doc with the same info. Note that the data displayed here is fake.
 
 </p>
 ```{r setup, include=FALSE}
