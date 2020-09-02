@@ -20,7 +20,8 @@ email_list <- read.csv("email_list.csv")
 to_list <- noquote(paste(paste0('"', email_list$email[email_list$type == 'to'], '"'), collapse = "; "))
 cc_list <- noquote(paste(paste0('"', email_list$email[email_list$type == 'cc'], '"'), collapse = "; "))
 from_list <- noquote(paste(paste0('"', email_list$email[email_list$type == 'from'], '"'), collapse = "; "))
-# # Open Outlook
+
+# Open Outlook
 outlook <- COMCreate("Outlook.Application")
 
 # Create a new message
@@ -38,6 +39,7 @@ email[["attachments"]]$Add(word_file)
 
 # Open separate window in Outlook to view email before sending
 email$Display()
+
 # To send the email directly in R, run lines below
 Sys.sleep(1)
 keybd.press('Ctrl+Enter')
