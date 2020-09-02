@@ -9,8 +9,8 @@ library(RDCOMClient)
 library(htmltools) # for includeHTML
 library(KeyboardSimulator) # for keybd.press
 
-rmarkdown::render("water_brief_word.Rmd", "word_document")
-rmarkdown::render("water_brief_html.Rmd", "html_document")
+# rmarkdown::render("water_brief_word.Rmd", "word_document")
+# rmarkdown::render("water_brief_html.Rmd", "html_document")
 
 word_file <- paste(getwd(), "water_brief_word.docx", sep = "/")
 htmlbody <- paste(includeHTML('water_brief_html.html'))
@@ -22,7 +22,7 @@ outlook <- COMCreate("Outlook.Application")
 email = outlook$CreateItem(0)
 
 # Set the recipient, subject, and body
-email[["to"]] = paste("kathryn_miller@nps.gov", "kate_m_miller@hotmail.com", sep=";")
+email[["to"]] = paste("kathryn_miller@nps.gov", sep=";")
 email[["SentOnBehalfOfName"]] = "kathryn_miller@nps.gov"
 #email[["cc"]] = paste("kathryn_miller@nps.gov", sep=";")
 email[["bcc"]] = ""
@@ -32,6 +32,7 @@ email[["attachments"]]$Add(word_file)
 
 # Open separate window in Outlook to view email before sending
 email$Display()
+
 # To send the email directly in R, run lines below
 Sys.sleep(3)
 keybd.press('Ctrl+Enter')
