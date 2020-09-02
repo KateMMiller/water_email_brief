@@ -1,0 +1,59 @@
+---
+output: 
+  html_document:
+      self_contained: true
+      css: custom_styles.css
+      fig_caption: yes
+      includes:
+        in_header: "header_image.html"
+        
+---
+<p style="width:90%;margin:10px 10px">
+<h2> Background </h2>
+This is a test R Markdown document that renders the output in HTML, then inserts the HTML into the body of an email. I'm still obviously working out the kinks. I also attached a print-friendly word doc with the same info. Note that the data displayed here is fake.
+
+</p>
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(width = 60)
+```
+
+
+```{r echo=F, include=F, results=F}
+library(tidyverse)
+dat<-read.csv('./data/2017_NETN_WQ_results.csv')[,1:9]
+
+water_plot <- function(dat, site, metric, new_month, new_var){
+  site_dat <- dat %>% filter(StationID == site, 
+                             variable == metric) %>% 
+    droplevels() %>% mutate(var_type = "Average") %>% 
+    select(StationID,month,variable,mean,var_type)
+  new_dat <- data.frame(StationID = as.factor(site),
+                        month = as.numeric(new_month),
+                        variable = metric,
+                        mean = as.numeric(new_var),
+                        var_type = 
+                          paste0("Latest Measurement (", new_month,"/2019)" ))
+  
+  all_dat<-rbind(site_dat,new_dat) %>% arrange(month,desc(var_type))
+  
+  print(ggplot(all_dat, aes(x=month, y=mean, fill=var_type,
+                            shape=var_type))+
+    geom_point(size=3, col='black')+
+    theme_classic()+
+    theme(legend.position = "bottom", legend.title = element_blank())+
+    labs(x="Month",y=metric)+
+    scale_fill_manual(values=c('DimGrey','blue'))+
+    scale_shape_manual(values=c(21,25)))
+}
+```
+
+```{r echo=F,warning=F, message=F, results='asis',fig.height=3.4, fig.width=4.5,fig.cap='Figure 1. Recent report for Dissolved Oxygen (%)', fig.align='center'}
+wp<-water_plot(dat, "ACJORD","DO (%)", 5, 102)
+
+```
+
+```{r echo=F,warning=F, message=F, results='asis',fig.height=3.4, fig.width=4.5, fig.cap='Figure 2. Recent report for pH', fig.align='center'}
+wp<-water_plot(dat, "ACJORD","pH", 5, 6.452)
+
+```
