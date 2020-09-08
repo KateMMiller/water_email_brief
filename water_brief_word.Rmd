@@ -5,7 +5,7 @@ output:
 ---
 
 ### Background 
-This is a test R Markdown document that renders the output in HTML, then inserts the HTML into the body of an email. I\'m still obviously working out the kinks. I also attached a print-friendly word doc with the same info. Note that the data displayed here is fake.
+This is a test R Markdown document that renders the output into a Word document that is printer a friendly version of the brief that gets attached email. I\'m still obviously working out the kinks. I also attached a print-friendly word doc with the same info. Note that the data displayed here are fake. Code to send emails is here: [water_email_brief repo](https://github.com/KateMMiller/water_email_brief/)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

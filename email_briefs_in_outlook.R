@@ -17,9 +17,10 @@ htmlbody <- paste(includeHTML('water_brief_html.html'))
 
 email_list <- read.csv("email_list.csv")
 
-to_list <- noquote(paste(paste0('"', email_list$email[email_list$type == 'to'], '"'), collapse = "; "))
-cc_list <- noquote(paste(paste0('"', email_list$email[email_list$type == 'cc'], '"'), collapse = "; "))
-from_list <- noquote(paste(paste0('"', email_list$email[email_list$type == 'from'], '"'), collapse = "; "))
+to_list <- noquote(paste(email_list$email[email_list$type == 'to'], collapse = "; "))
+test_list <- noquote(email_list$email[1])
+cc_list <- noquote(paste(email_list$email[email_list$type == 'cc'], collapse = "; "))
+from_list <- noquote(paste(email_list$email[email_list$type == 'from'], collapse = "; "))
 
 # Open Outlook
 outlook <- COMCreate("Outlook.Application")
@@ -27,11 +28,11 @@ outlook <- COMCreate("Outlook.Application")
 # Create a new message
 email = outlook$CreateItem(0)
 
-
 # Set the recipient, subject, and body
-email[["to"]] = paste(to_list)
+#email[["to"]] = paste(to_list)
+email[["to"]] = paste(test_list)
 email[["SentOnBehalfOfName"]] = paste(from_list)
-email[["cc"]] = paste(cc_list)
+#email[["cc"]] = paste(cc_list)
 email[["bcc"]] = ""
 email[["subject"]] = "NETN water brief"
 email[["htmlbody"]] = paste(htmlbody)
